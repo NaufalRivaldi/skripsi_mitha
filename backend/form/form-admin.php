@@ -107,7 +107,7 @@
                                         <div class="form-group row">
                                             <label for="password" class="col-sm-2 col-form-label">Password</label>
                                             <div class="col-sm-10">
-                                            <input type="password" name="password" class="form-control" id="password" required>
+                                            <input type="password" name="password" class="form-control" id="password" <?= ($_GET) ? '' : 'required' ?>>
                                             </div>
 
                                             <?= (!empty($password)) ? '

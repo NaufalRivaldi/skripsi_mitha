@@ -96,7 +96,7 @@
                                                         <a href="form/form-admin.php?id=<?= $row['id_admin'] ?>" class="btn btn-success btn-sm"><i class="fas fa-cog"></i></a>
 
                                                         <?php if($_SESSION['id'] != $row['id_admin']){ ?>
-                                                        <a href="proses/delete/delete-admin.php?id=<?= $row['id_admin'] ?>" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
+                                                        <a href="proses/delete/delete-admin.php?id=<?= $row['id_admin'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Hapus data secara permanen?');" ><i class="fas fa-trash"></i></a>
                                                         <?php } ?>
                                                     </td>
                                                 </tr>
