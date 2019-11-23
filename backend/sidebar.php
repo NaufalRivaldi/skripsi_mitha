@@ -18,15 +18,21 @@
                         <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-3" aria-controls="submenu-3"><i class="fas fa-fw fa-chart-pie"></i>Data </a>
                         <div id="submenu-3" class="collapse submenu" style="">
                             <ul class="nav flex-column">
+
+                                <?php if($_SESSION['level'] == '1'): ?>
                                 <li class="nav-item">
                                     <a class="nav-link" href="<?= base_url ?>backend/admin.php">Admin</a>
                                 </li>
+                                <?php endif ?>
+
                                 <li class="nav-item">
                                     <a class="nav-link" href="<?= base_url ?>backend/user.php">Pengisi Kuisioner</a>
                                 </li>
                             </ul>
                         </div>
                     </li>
+
+                    <?php if($_SESSION['level'] == '1'): ?>
                     <li class="nav-item ">
                         <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-4" aria-controls="submenu-4"><i class="fab fa-fw fa-wpforms"></i>Kuisioner</a>
                         <div id="submenu-4" class="collapse submenu" style="">
@@ -34,18 +40,17 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="<?= base_url ?>backend/pertanyaan.php">Pertanyaan</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="<?= base_url ?>backend/komentar.php">Komentar</a>
-                                </li>
                             </ul>
                         </div>
                     </li>
+                    <?php endif ?>
+
                     <li class="nav-item">
                         <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-5" aria-controls="submenu-5"><i class="fas fa-fw fa-file"></i>Laporan</a>
                         <div id="submenu-5" class="collapse submenu" style="">
                             <ul class="nav flex-column">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="<?= base_url ?>backend/pages/general-table.html">Penilaian</a>
+                                    <a class="nav-link" href="<?= base_url ?>backend/penilaian.php">Penilaian</a>
                                 </li>
                             </ul>
                         </div>
