@@ -12,7 +12,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12 main">
-                <img src="assets/images/logo-stikom.png" alt="logo-stikom" class="img-round" style="width:100px">
+                <img src="assets/images/logo-stikom.png" alt="logo-stikom" class="img-round mt-3" style="width:100px">
                 <h1 class="display-5">KEPUASAN CUSTOMERS SERVICE<br>ITB STIKOM BALI</h1>
             </div>
         </div>
@@ -24,11 +24,16 @@
                     <!-- form -->
                     <div class="card">
                         <div class="card-header">
-                            <form>
+                            <form method="POST" action="simpan-kuisioner.php">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label class="font-weight-bold">Data Diri</label>
+                                    </div>
+                                </div>
                                 <div class="row">
                                     <div class="form-group col-md-3">
                                         <label for="nama" class="sr-only">Nama</label>
-                                        <input type="text" name="nama" class="form-control" id="nama" value="Nama" required>
+                                        <input type="text" name="nama" class="form-control" id="nama" placeholder="Nama" required>
                                     </div>
                                     <div class="form-group col-md-3">
                                         <label for="no_telp" class="sr-only">No Telp</label>
@@ -46,16 +51,57 @@
                                         <tr>
                                             <th>#</th>
                                             <th>Pertanyaan</th>
-                                            <th>😞</th>
-                                            <th>☹️</th>
-                                            <th>😀</th>
-                                            <th>😆</th>
+                                            <th class="text-right">😞</th>
+                                            <th class="text-right">☹️</th>
+                                            <th class="text-right">😀</th>
+                                            <th class="text-right">😆</th>
                                         </tr>
                                     </thead>
+                                    <tbody>
+                                        <?php
+                                            $no = 1;
+                                            $sql = "SELECT * FROM tb_pertanyaan";
+                                            $query = $con->query($sql);
+
+                                            if(!empty($query)){
+                                                foreach($query as $row){
+                                        ?>
+                                                <tr>
+                                                    <td><?= $no++ ?></td>
+                                                    <td>
+                                                        <?= $row['pertanyaan'] ?>
+                                                        <input type="hidden" name="id_pertanyaan[]" value="<?= $row['id_pertanyaan'] ?>">
+                                                    </td>
+                                                    <td colspan="4">
+                                                        <input type="range" name="nilai[]" class="custom-range" min="0" max="4" value="0" required>
+                                                    </td>
+                                                </tr>
+                                        <?php
+                                                }
+                                            }
+                                        ?>
+
+                                        <!-- komen -->
+                                        <tr>
+                                            <td colspan="6">
+                                                <textarea name="komentar" rows="5" class="form-control" placeholder="Komentar anda.."></textarea>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="6">
+                                                <input type="submit" value="Simpan" class="btn btn-primary">
+                                            </td>
+                                        </tr>
+                                    </tbody>
                                 </table>
                             </form>
                         </div>
                     </div>
+                </div>
+                
+                <!-- footer -->
+                <div class="footer">
+                    Copyright © 2019. All rights reserved.
                 </div>
             </div>
         </div>

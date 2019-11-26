@@ -92,7 +92,9 @@
                                                     <td><?= $row['email'] ?></td>
                                                     <td><?= $row['deskripsi'] ?></td>
                                                     <td>
+                                                        <?php if($_SESSION['level'] == '1'): ?>
                                                         <a href="proses/delete/delete-user.php?id=<?= $row['id_user'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Hapus data secara permanen?');" ><i class="fas fa-trash"></i></a>
+                                                        <?php endif ?>
                                                     </td>
                                                 </tr>
                                                 <?php
