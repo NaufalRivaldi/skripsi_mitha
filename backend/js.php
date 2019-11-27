@@ -20,5 +20,11 @@
 <script>
     $(document).ready( function () {
         $('.table').DataTable();
+
+        // set validasi tanggal
+        $('.tgl_a').on('change', function(){
+            var tgl = $('.tgl_a').val();
+            $('.tgl_b').attr("min", tgl);
+        });
     } );
 </script>

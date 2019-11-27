@@ -12,7 +12,7 @@
         <div class="wreapper">
             <div class="main">
                 <img src="assets/images/logo-stikom.png" alt="logo-stikom" class="img-round"><br>
-                <h1 class="display-5">KEPUASAN CUSTOMERS SERVICE<br>ITB STIKOM BALI</h1>
+                <h1 class="display-5">PENILAIAN KEPUASAN PELANGGAN<br>ITB STIKOM BALI</h1>
                 <!-- Flash data -->
                 <?php (isset($_SESSION['flash'])) ? viewAlert() : '' ?>
                 <!-- Flash data -->

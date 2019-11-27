@@ -13,7 +13,7 @@
         <div class="row">
             <div class="col-md-12 main">
                 <img src="assets/images/logo-stikom.png" alt="logo-stikom" class="img-round mt-3" style="width:100px">
-                <h1 class="display-5">KEPUASAN CUSTOMERS SERVICE<br>ITB STIKOM BALI</h1>
+                <h1 class="display-5">PENILAIAN KEPUASAN PELANGGAN<br>ITB STIKOM BALI</h1>
             </div>
         </div>
         <div class="row">
@@ -37,7 +37,7 @@
                                     </div>
                                     <div class="form-group col-md-3">
                                         <label for="no_telp" class="sr-only">No Telp</label>
-                                        <input type="text" name="no_telp" class="form-control" id="no_telp" placeholder="No Telepon" required>
+                                        <input type="tel" name="no_telp" class="form-control" id="no_telp" placeholder="No Telepon" pattern="^\d{12}$" required>
                                     </div>
                                     <div class="form-group col-md-3">
                                         <label for="email" class="sr-only">Email</label>

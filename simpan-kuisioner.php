@@ -7,6 +7,7 @@
     $email = $_POST['email'];
     $id_pertanyaan = $_POST['id_pertanyaan'];
     $nilai = $_POST['nilai'];
+    $tgl_nilai = date('Y-m-d');
     $komen = $_POST['komentar'];
 
     // save user
@@ -52,11 +53,13 @@
 
     function simpanNilai($id_user, $id_pertanyaan, $nilai){
         global $con;
+        global $tgl_nilai;
         
         for($i = 0; $i < count($id_pertanyaan); $i++){
             $sql = "INSERT INTO tb_nilai VALUES(
                 '',
                 '$nilai[$i]',
+                '$tgl_nilai',
                 '$id_user',
                 '$id_pertanyaan[$i]'
             )";

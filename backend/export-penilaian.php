@@ -9,11 +9,27 @@
 
     checkLogin();
 
+    // variable
+    $tgl_a = '';
+    $tgl_b = '';
+    if(!empty($_GET)){
+        $tgl_a = $_GET['tgl_a'];
+        $tgl_b = $_GET['tgl_b'];
+    }
+
     // function
     function showResponden($id_pertanyaan, $nilai){
         global $con;
+        global $tgl_a;
+        global $tgl_b;
         
-        $sql = "SELECT * FROM tb_nilai WHERE id_pertanyaan = '$id_pertanyaan' AND nilai = '$nilai'";
+        if(!empty($_GET)){
+            $tgl_a = $_GET['tgl_a'];
+            $tgl_b = $_GET['tgl_b'];
+            $sql = "SELECT * FROM tb_nilai WHERE id_pertanyaan = '$id_pertanyaan' AND nilai = '$nilai' AND tgl_nilai >= '$tgl_a' AND tgl_nilai <= '$tgl_b'";
+        }else{
+            $sql = "SELECT * FROM tb_nilai WHERE id_pertanyaan = '$id_pertanyaan' AND nilai = '$nilai'";
+        }
         $query = $con->query($sql);
         $row = mysqli_num_rows($query);
 
@@ -45,7 +61,16 @@
     }
 
     $html = "
-        <h3>Responden</h3>
+        <center>
+            <h1>HASIL PENILAIAN KEPUASAN PELANGGAN</h1>
+        </center>";
+            if(!empty($_GET)){
+                $html .= "<p>
+                    Tanggal : ".$_GET['tgl_a']." s/d ".$_GET['tgl_b']."
+                </p>";
+            }
+
+    $html .= "<h3>Responden</h3>
         <table border='1' style='width:100%'>
             <thead>
                 <tr>
@@ -69,7 +94,7 @@
                             $res1 = showResponden($row['id_pertanyaan'], 1);
                             $res2 = showResponden($row['id_pertanyaan'], 2);
                             $res3 = showResponden($row['id_pertanyaan'], 3);
-                            $res4 = showResponden($row['id_pertanyaan'], 1);
+                            $res4 = showResponden($row['id_pertanyaan'], 4);
 
                             $total_res = $res1 + $res2 + $res3+ $res4;
                 $html .= "
@@ -91,7 +116,7 @@
 
         <hr>
         <!-- penilaian -->
-        <h3>Hasil Penilaian</h3>
+        <h3>Nilai</h3>
         <table border = '1' style='width:100%'>
             <thead>
                 <tr>
@@ -136,7 +161,7 @@
                     <td>".$skor3."</td>
                     <td>".$skor4."</td>
                     <td>".$total_skor."</td>
-                    <td>".$indeks."%</td>
+                    <td>".round($indeks)."%</td>
                     <td>".status($indeks)."</td>
                 </tr>
                 ";

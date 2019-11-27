@@ -4,11 +4,27 @@
 
     checkLogin();
 
+    // variable
+    $tgl_a = '';
+    $tgl_b = '';
+    if(!empty($_GET)){
+        $tgl_a = $_GET['tgl_a'];
+        $tgl_b = $_GET['tgl_b'];
+    }
+
     // function
     function showResponden($id_pertanyaan, $nilai){
         global $con;
+        global $tgl_a;
+        global $tgl_b;
         
-        $sql = "SELECT * FROM tb_nilai WHERE id_pertanyaan = '$id_pertanyaan' AND nilai = '$nilai'";
+        if(!empty($_GET)){
+            $tgl_a = $_GET['tgl_a'];
+            $tgl_b = $_GET['tgl_b'];
+            $sql = "SELECT * FROM tb_nilai WHERE id_pertanyaan = '$id_pertanyaan' AND nilai = '$nilai' AND tgl_nilai >= '$tgl_a' AND tgl_nilai <= '$tgl_b'";
+        }else{
+            $sql = "SELECT * FROM tb_nilai WHERE id_pertanyaan = '$id_pertanyaan' AND nilai = '$nilai'";
+        }
         $query = $con->query($sql);
         $row = mysqli_num_rows($query);
 
@@ -99,10 +115,37 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <a href="export-penilaian.php" class="btn btn-success"><i class="fas fa-print"></i> Print Data</a>
+                                    <a href="export-penilaian.php?<?= $_SERVER['QUERY_STRING']; ?>" class="btn btn-success"><i class="fas fa-print"></i> Print Data</a>
+                                    <br><br>
+                                    <form method="GET" action="penilaian.php">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <label>Tanggal Laporan :</label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <input type="date" name="tgl_a" class="form-control tgl_a" value="<?= $tgl_a ?>">
+                                            </div>
+                                            <div class="col-md-4">
+                                                <input type="date" name="tgl_b" class="form-control tgl_b" min="<?= $tgl_a ?>" value="<?= $tgl_b ?>">
+                                            </div>
+                                            <div class="col-md-4">
+                                                <input type="submit" class="btn btn-primary btn-sm" value="Cari">
+                                            </div>
+                                        </div>
+                                    </form>
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
+                                        <?php
+                                            if(!empty($_GET)){
+                                        ?>
+                                            <p>
+                                                Tanggal : <?= $_GET['tgl_a'] ?> s/d <?= $_GET['tgl_b'] ?>
+                                            </p>
+                                        <?php } ?>
+
                                         <!-- responden -->
                                         <h3>Responden</h3>
                                         <table class="table table-striped display">
@@ -128,7 +171,7 @@
                                                             $res1 = showResponden($row['id_pertanyaan'], 1);
                                                             $res2 = showResponden($row['id_pertanyaan'], 2);
                                                             $res3 = showResponden($row['id_pertanyaan'], 3);
-                                                            $res4 = showResponden($row['id_pertanyaan'], 1);
+                                                            $res4 = showResponden($row['id_pertanyaan'], 4);
 
                                                             $total_res = $res1 + $res2 + $res3+ $res4;
                                                 ?>
@@ -195,7 +238,7 @@
                                                     <td><?= $skor3; ?></td>
                                                     <td><?= $skor4; ?></td>
                                                     <td><?= $total_skor ?></td>
-                                                    <td><?= $indeks ?>%</td>
+                                                    <td><?= round($indeks) ?>%</td>
                                                     <td><?= status($indeks) ?></td>
                                                 </tr>
                                                 <?php
