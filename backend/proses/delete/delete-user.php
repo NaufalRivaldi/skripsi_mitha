@@ -5,8 +5,14 @@
     $id = $_GET['id'];
 
     $sql = "DELETE FROM tb_user WHERE id_user = '$id'";
-
     $query = $con->query($sql);
+
+    $sql = "DELETE FROM tb_komen WHERE id_user = '$id'";
+    $query = $con->query($sql);
+
+    $sql = "DELETE FROM tb_nilai WHERE id_user = '$id'";
+    $query = $con->query($sql);
+
     
     if($query){
         // flash data

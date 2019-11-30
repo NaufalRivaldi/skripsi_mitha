@@ -11,7 +11,7 @@
     $komen = $_POST['komentar'];
 
     // save user
-    simpanUser($nama, $no_telp, $email);
+    simpanUser($nama, $no_telp, $email, $tgl_nilai);
     $id_user = idLastUser();
 
     // save nilai
@@ -25,14 +25,15 @@
     header("Location: index.php");
 
     // fungsi tambahan
-    function simpanUser($nama, $no_telp, $email){
+    function simpanUser($nama, $no_telp, $email, $tgl_nilai){
         global $con;
         
         $sql = "INSERT INTO tb_user VALUES(
             '',
             '$nama',
             '$no_telp',
-            '$email'
+            '$email',
+            '$tgl_nilai'
         )";
 
         $query = $con->query($sql);

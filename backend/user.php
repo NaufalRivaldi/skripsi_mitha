@@ -3,6 +3,14 @@
     require "proses/koneksi.php";
 
     checkLogin();
+
+    // variable
+    $tgl_a = '';
+    $tgl_b = '';
+    if(!empty($_GET)){
+        $tgl_a = $_GET['tgl_a'];
+        $tgl_b = $_GET['tgl_b'];
+    }
 ?>
 
 
@@ -63,12 +71,40 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="card">
+                                <div class="card-header">
+                                    <form method="GET" action="user.php">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <label>Tanggal :</label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <input type="date" name="tgl_a" class="form-control tgl_a" value="<?= $tgl_a ?>">
+                                            </div>
+                                            <div class="col-md-4">
+                                                <input type="date" name="tgl_b" class="form-control tgl_b" min="<?= $tgl_a ?>" value="<?= $tgl_b ?>">
+                                            </div>
+                                            <div class="col-md-4">
+                                                <input type="submit" class="btn btn-primary btn-sm" value="Cari">
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
                                 <div class="card-body">
+                                    <?php
+                                        if(!empty($_GET)){
+                                    ?>
+                                        <p>
+                                            Tanggal : <?= $_GET['tgl_a'] ?> s/d <?= $_GET['tgl_b'] ?>
+                                        </p>
+                                    <?php } ?>
                                     <div class="table-responsive">
                                         <table class="table table-striped display">
                                             <thead>
                                                 <tr>
                                                     <th>No</th>
+                                                    <th>Tanggal</th>
                                                     <th>Nama</th>
                                                     <th>No Telp</th>
                                                     <th>Email</th>
@@ -79,14 +115,18 @@
                                             <tbody>
                                                 <?php
                                                     $no = 1;
-                                                    $sql = "SELECT tb_user.id_user, tb_user.nama, tb_user.no_telp, tb_user.email, tb_komen.deskripsi FROM tb_user INNER JOIN tb_komen ON tb_user.id_user = tb_komen.id_user";
+                                                    if(!empty($_GET)){
+                                                        $sql = "SELECT tb_user.id_user, tb_user.nama, tb_user.no_telp, tb_user.email, tb_user.tgl ,tb_komen.deskripsi FROM tb_user INNER JOIN tb_komen ON tb_user.id_user = tb_komen.id_user WHERE tb_user.tgl >= '$tgl_a' AND tb_user.tgl <= '$tgl_b' ORDER BY tb_user.tgl DESC";
+                                                    }else{
+                                                        $sql = "SELECT tb_user.id_user, tb_user.nama, tb_user.no_telp, tb_user.email, tb_user.tgl ,tb_komen.deskripsi FROM tb_user INNER JOIN tb_komen ON tb_user.id_user = tb_komen.id_user ORDER BY tb_user.tgl DESC";
+                                                    }
                                                     $query = $con->query($sql);
-                                                    
-                                                    if(isset($query)){
+                                                    if(!empty($query)){
                                                         foreach($query as $row){
                                                 ?>
                                                 <tr>
                                                     <td><?= $no++; ?></td>
+                                                    <td><?= $row['tgl']; ?></td>
                                                     <td><?= $row['nama']; ?></td>
                                                     <td><?= $row['no_telp']; ?></td>
                                                     <td><?= $row['email'] ?></td>
