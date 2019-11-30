@@ -1,8 +1,8 @@
 <?php
     session_start();
     define('app_name', 'Sistem Kepuasan Pelanggan');
-    define('base_url', 'http://localhost/skripsi-mitha/');
-    // define('base_url', 'http://localhost/skripsi_mitha/');
+    // define('base_url', 'http://localhost/skripsi-mitha/');
+    define('base_url', 'http://localhost/skripsi_mitha/');
 
     // session flash
     function setSession($set, $text){

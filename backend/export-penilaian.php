@@ -99,7 +99,7 @@
                             $total_res = $res1 + $res2 + $res3+ $res4;
                 $html .= "
                 <tr>
-                    <td>".$no."</td>
+                    <td>".$no++."</td>
                     <td>".$row['pertanyaan']."</td>
                     <td>".$res1."</td>
                     <td>".$res2."</td>
