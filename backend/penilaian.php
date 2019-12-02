@@ -31,6 +31,16 @@
         return $row;
     }
 
+    function showResponden2($id_pertanyaan, $nilai, $tgl){
+        global $con;
+        
+        $sql = "SELECT * FROM tb_nilai WHERE id_pertanyaan = '$id_pertanyaan' AND nilai = '$nilai' AND tgl_nilai = '$tgl'";
+        $query = $con->query($sql);
+        $row = mysqli_num_rows($query);
+
+        return $row;
+    }
+
     function skor($responden, $nilai){
         return $responden * $nilai;
     }
@@ -53,6 +63,79 @@
         }
 
         return $text;
+    }
+
+    // nilai chart
+    function valueChart(){
+        global $con;
+        global $tgl_a;
+        global $tgl_b;
+        $grand_total = array();
+        
+        if(!empty($_GET)){
+            $tgl_a = $_GET['tgl_a'];
+            $tgl_b = $_GET['tgl_b'];
+            $sql = "SELECT tgl_nilai FROM tb_nilai WHERE tgl_nilai >= '$tgl_a' AND tgl_nilai <= '$tgl_b' GROUP BY tgl_nilai";
+        }else{
+            $sql = "SELECT tgl_nilai FROM tb_nilai GROUP BY tgl_nilai";
+        }
+        $query = $con->query($sql);
+        if(!empty($query)){
+            foreach($query as $row){
+                $tgl = $row['tgl_nilai'];
+                $tmp_nilai = 0;
+                $sql = "SELECT * FROM tb_pertanyaan";
+                $query = $con->query($sql);
+                $total_pertanyaan = mysqli_num_rows($query);
+                
+                if(isset($query)){
+                    foreach($query as $row){
+                        $skor1 = skor(showResponden2($row['id_pertanyaan'], 1, $tgl), 1);
+                        $skor2 = skor(showResponden2($row['id_pertanyaan'], 2, $tgl), 2);
+                        $skor3 = skor(showResponden2($row['id_pertanyaan'], 3, $tgl), 3);
+                        $skor4 = skor(showResponden2($row['id_pertanyaan'], 4, $tgl), 4);
+    
+                        $total_skor = $skor1+$skor2+$skor3+$skor4;
+                        // jumlah responden * skor tertinggi
+                        $max = totalResponden(showResponden2($row['id_pertanyaan'], 1, $tgl), showResponden2($row['id_pertanyaan'], 2, $tgl), showResponden2($row['id_pertanyaan'], 3, $tgl), showResponden2($row['id_pertanyaan'], 4, $tgl)) * 4;
+                        if(!empty($max)){
+                            $indeks = ($total_skor / $max) * 100;
+                            $tmp_nilai += round($indeks);
+                        }else{
+                            $indeks = 0;
+                            $tmp_nilai += $indeks;
+                        }
+                    }
+                }
+    
+                array_push($grand_total, $tmp_nilai/$total_pertanyaan);
+            }
+        }
+
+        return $grand_total;
+    }
+
+    function getTanggal(){
+        global $con;
+        global $tgl_a;
+        global $tgl_b;
+        $list_tanggal = array();
+        
+        if(!empty($_GET)){
+            $tgl_a = $_GET['tgl_a'];
+            $tgl_b = $_GET['tgl_b'];
+            $sql = "SELECT tgl_nilai FROM tb_nilai WHERE tgl_nilai >= '$tgl_a' AND tgl_nilai <= '$tgl_b' GROUP BY tgl_nilai";
+        }else{
+            $sql = "SELECT tgl_nilai FROM tb_nilai GROUP BY tgl_nilai";
+        }
+        $query = $con->query($sql);
+        if(!empty($query)){
+            foreach($query as $row){
+                array_push($list_tanggal, $row['tgl_nilai']);
+            }
+        }
+
+        return $list_tanggal;
     }
 ?>
 
@@ -137,6 +220,10 @@
                                     </form>
                                 </div>
                                 <div class="card-body">
+                                    <!-- chart -->
+                                    <div id="chart"></div>
+                                    <!-- chart -->
+
                                     <div class="table-responsive">
                                         <?php
                                             if(!empty($_GET)){
@@ -262,6 +349,52 @@
     
     <!-- Optional JavaScript -->
     <?php require "js.php" ?>
+    <script>
+        $(document).ready(function(){
+            var value = new Array();
+            var tanggal = new Array();
+            value.push('Penilaian Kuisioner');
+            tanggal.push('x');
+            <?php if(!empty(valueChart())): ?>
+                <?php foreach(valueChart() as $row): ?>
+                    value.push(<?= $row ?>)
+                <?php endforeach ?>
+            <?php endif ?>
+
+            <?php if(!empty(getTanggal())): ?>
+                <?php foreach(getTanggal() as $row): ?>
+                    tanggal.push('<?= $row ?>')
+                <?php endforeach ?>
+            <?php endif ?>
+
+            console.log(tanggal);
+
+            // chart
+            var chart = c3.generate({
+                bindto: '#chart',
+                data: {
+                    x: 'x',
+                    columns: [
+                        tanggal, value
+                    ]
+                },
+                axis: {
+                    y: {
+                        label: {
+                        text: 'Persentase Penilaian Keseluruhan',
+                        position: 'outer-middle'
+                        }
+                    },
+                    x: {
+                        type: 'timeseries',
+                        tick: {
+                            format: '%d-%m-%Y'
+                        }
+                    }
+                }
+            });
+        });
+    </script>
 </body>
  
 </html>
