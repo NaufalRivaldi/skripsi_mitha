@@ -46,15 +46,35 @@
                                 </div>
                         </div>
                         <div class="card-body">
-                                <table class="table table-striped">
+                                <table class="table table-bordered">
                                     <thead>
                                         <tr>
                                             <th>#</th>
                                             <th>Pertanyaan</th>
-                                            <th class="text-right">😞</th>
-                                            <th class="text-right">☹️</th>
-                                            <th class="text-right">😀</th>
-                                            <th class="text-right">😆</th>
+                                            <th colspan="4">
+                                                <div class="row" style="margin:0; padding:0;">
+                                                    <div class="col-3 text-right" style="margin:0; padding:0">
+                                                        <span style="margin-right: -15px">
+                                                            😞
+                                                        </span>
+                                                    </div>
+                                                    <div class="col-3 text-right" style="margin:0; padding:0">
+                                                        <span style="margin-right: -12px">
+                                                            ☹️
+                                                        </span>
+                                                    </div>
+                                                    <div class="col-3 text-right" style="margin:0; padding:0">
+                                                        <span style="margin-right: -9px">
+                                                            😀
+                                                        </span>
+                                                    </div>
+                                                    <div class="col-3 text-right" style="margin:0; padding:0">
+                                                        <span style="margin-right: -6px">
+                                                            😆
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </th>
                                         </tr>
                                     </thead>
                                     <tbody>

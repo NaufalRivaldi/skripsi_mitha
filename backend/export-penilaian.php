@@ -12,9 +12,11 @@
     // variable
     $tgl_a = '';
     $tgl_b = '';
+    $tanggal = date('F Y');
     if(!empty($_GET)){
         $tgl_a = $_GET['tgl_a'];
         $tgl_b = $_GET['tgl_b'];
+        $tanggal = date('d F Y', strtotime($tgl_a)).' - '.date('d F Y', strtotime($tgl_b));
     }
 
     // function
@@ -62,7 +64,9 @@
 
     $html = "
         <center>
-            <h1>HASIL PENILAIAN KEPUASAN PELANGGAN</h1>
+            <img src='../assets/images/kop.jpg' alt='logo stikom' width='100%'>
+            <hr>
+            <h2>HASIL PENILAIAN KEPUASAN PELANGGAN</h2>
         </center>";
             if(!empty($_GET)){
                 $html .= "<p>
@@ -70,51 +74,9 @@
                 </p>";
             }
 
-    $html .= "<h3>Responden</h3>
-        <table border='1' style='width:100%'>
-            <thead>
-                <tr>
-                    <th>No</th>
-                    <th>Pertanyaan</th>
-                    <th>1</th>
-                    <th>2</th>
-                    <th>3</th>
-                    <th>4</th>
-                    <td>Total</td>
-                </tr>
-            </thead>
-            <tbody>
-                ";
-                    $no = 1;
-                    $sql = "SELECT * FROM tb_pertanyaan";
-                    $query = $con->query($sql);
-                    
-                    if(isset($query)){
-                        foreach($query as $row){
-                            $res1 = showResponden($row['id_pertanyaan'], 1);
-                            $res2 = showResponden($row['id_pertanyaan'], 2);
-                            $res3 = showResponden($row['id_pertanyaan'], 3);
-                            $res4 = showResponden($row['id_pertanyaan'], 4);
-
-                            $total_res = $res1 + $res2 + $res3+ $res4;
-                $html .= "
-                <tr>
-                    <td>".$no++."</td>
-                    <td>".$row['pertanyaan']."</td>
-                    <td>".$res1."</td>
-                    <td>".$res2."</td>
-                    <td>".$res3."</td>
-                    <td>".$res4."</td>
-                    <td>".$total_res." Orang</td>
-                </tr>
-                ";
-                        }
-                    }
-                $html .= "
-            </tbody>
-        </table>
-
+        $html .= "
         <hr>
+        Periode : ".$tanggal."
         <!-- penilaian -->
         <h3>Nilai</h3>
         <table border = '1' style='width:100%'>
@@ -122,11 +84,6 @@
                 <tr>
                     <th>No</th>
                     <th>Pertanyaan</th>
-                    <th>1</th>
-                    <th>2</th>
-                    <th>3</th>
-                    <th>4</th>
-                    <th>Total</th>
                     <th>Persentase</th>
                     <th>Status</th>
                 </tr>
@@ -156,11 +113,6 @@
                 <tr>
                     <td>".$no++."</td>
                     <td>".$row['pertanyaan']."</td>
-                    <td>".$skor1."</td>
-                    <td>".$skor2."</td>
-                    <td>".$skor3."</td>
-                    <td>".$skor4."</td>
-                    <td>".$total_skor."</td>
                     <td>".round($indeks)."%</td>
                     <td>".status($indeks)."</td>
                 </tr>
