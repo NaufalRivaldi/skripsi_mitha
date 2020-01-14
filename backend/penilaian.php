@@ -378,6 +378,9 @@
                         tanggal, value
                     ]
                 },
+                zoom: {
+                    enabled:true
+                },
                 axis: {
                     y: {
                         label: {
@@ -388,7 +391,7 @@
                     x: {
                         type: 'timeseries',
                         tick: {
-                            format: '%d-%m-%Y'
+                            format: '%d-%m-%y'
                         }
                     }
                 }
