@@ -65,6 +65,7 @@
                             <div class="card">
                                 <div class="card-header">
                                     <a href="form/form-pertanyaan.php" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i> Tambah Pertanyaan</a>
+                                    <p class="text-danger">*Jika menambah pertanyaan, data penilaian akan di reset ulang.</p>
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">

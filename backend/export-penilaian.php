@@ -38,6 +38,17 @@
         return $row;
     }
 
+    function showAllResponden(){
+        global $con;
+
+        $sql = "SELECT * FROM tb_user";
+
+        $query = $con->query($sql);
+        $row = mysqli_num_rows($query);
+
+        return $row;
+    }
+
     function skor($responden, $nilai){
         return $responden * $nilai;
     }
@@ -70,13 +81,12 @@
         </center>";
             if(!empty($_GET)){
                 $html .= "<p>
-                    Tanggal : ".$_GET['tgl_a']." s/d ".$_GET['tgl_b']."
+                    Tanggal : ".$tanggal."
                 </p>";
             }
 
         $html .= "
         <hr>
-        Periode : ".$tanggal."
         <!-- penilaian -->
         <h3>Nilai</h3>
         <table border = '1' style='width:100%'>
@@ -122,6 +132,7 @@
                 $html .= "
             </tbody>
         </table>
+        <b>Jumlah responden : ".showAllResponden()."</b>
     ";
 
     $dompdf->loadHtml($html);

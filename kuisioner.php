@@ -37,11 +37,11 @@
                                     </div>
                                     <div class="form-group col-md-3">
                                         <label for="no_telp" class="sr-only">No Telp</label>
-                                        <input type="tel" name="no_telp" class="form-control" id="no_telp" placeholder="No Telepon" pattern="^\d{12}$" required>
+                                        <input type="number" name="no_telp" class="form-control" id="no_telp" placeholder="No Telepon" required>
                                     </div>
                                     <div class="form-group col-md-3">
                                         <label for="email" class="sr-only">Email</label>
-                                        <input type="email" name="email" class="form-control" id="email" placeholder="Email" required>
+                                        <input type="email" name="email" class="form-control" id="email" placeholder="Email">
                                     </div>
                                 </div>
                         </div>
@@ -53,23 +53,26 @@
                                             <th>Pertanyaan</th>
                                             <th colspan="4">
                                                 <div class="row" style="margin:0; padding:0;">
-                                                    <div class="col-3 text-right" style="margin:0; padding:0">
-                                                        <span style="margin-right: -15px">
+                                                    <div class="col-3" style="margin:0; padding:0">
+                                                        <span style="margin-left: -3px; float: left" data-toggle="tooltip" data-placement="top" title="Buruk">
+                                                            😖
+                                                        </span>
+                                                        <span style="margin-right: -15px; float: right" data-toggle="tooltip" data-placement="top" title="Kurang Bagus">
                                                             😞
                                                         </span>
                                                     </div>
                                                     <div class="col-3 text-right" style="margin:0; padding:0">
-                                                        <span style="margin-right: -12px">
+                                                        <span style="margin-right: -12px" data-toggle="tooltip" data-placement="top" title="Cukup Bagus">
                                                             ☹️
                                                         </span>
                                                     </div>
                                                     <div class="col-3 text-right" style="margin:0; padding:0">
-                                                        <span style="margin-right: -9px">
+                                                        <span style="margin-right: -9px" data-toggle="tooltip" data-placement="top" title="Bagus">
                                                             😀
                                                         </span>
                                                     </div>
                                                     <div class="col-3 text-right" style="margin:0; padding:0">
-                                                        <span style="margin-right: -6px">
+                                                        <span style="margin-right: -6px" data-toggle="tooltip" data-placement="top" title="Sangat Bagus">
                                                             😆
                                                         </span>
                                                     </div>

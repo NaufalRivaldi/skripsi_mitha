@@ -103,6 +103,9 @@
                                         </div>
                                     </form>
                                 </div>
+                                <div class="card-footer">
+                                    <p class="text-danger">*Jika menambah pertanyaan, data penilaian akan di reset ulang.</p>
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -4,11 +4,16 @@
 
     $nama = $_POST['nama'];
     $no_telp = $_POST['no_telp'];
-    $email = $_POST['email'];
     $id_pertanyaan = $_POST['id_pertanyaan'];
     $nilai = $_POST['nilai'];
     $tgl_nilai = date('Y-m-d');
     $komen = $_POST['komentar'];
+
+    if(!empty($_POST['email'])){
+        $email = $_POST['email'];
+    }else{
+        $email = '-';
+    }
 
     // save user
     simpanUser($nama, $no_telp, $email, $tgl_nilai);
